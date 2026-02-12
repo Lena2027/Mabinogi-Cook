@@ -1,0 +1,18 @@
+/* style.css */
+body { font-family: 'Pretendard', sans-serif; background-color: #1b1b1e; color: #dcdcdc; margin: 0; padding: 20px; display: flex; justify-content: center; }
+.container { background-color: #252529; padding: 2rem; border-radius: 12px; width: 100%; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+h1 { color: #ffffff; text-align: center; border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-top: 0; }
+.input-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; color: #a0a0a0; font-size: 0.9rem; }
+select, input { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #3a3a3e; background-color: #1b1b1e; color: white; box-sizing: border-box; font-size: 1rem; outline: none; }
+input:focus { border-color: #e67e22; } /* 검색창 클릭 시 오렌지색 강조 */
+button { width: 100%; padding: 15px; border: none; border-radius: 6px; background-color: #e67e22; color: white; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; }
+button:hover { background-color: #d35400; }
+.result-section { margin-top: 25px; display: none; }
+.recipe-tree { background: #2d2d32; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #e67e22; line-height: 1.8; }
+.shopping-list { background: #1b1b1e; padding: 15px; border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { text-align: left; padding: 12px; border-bottom: 1px solid #3a3a3e; font-size: 0.9rem; }
+th { color: #e67e22; background-color: #2d2d32; }
+.nested { padding-left: 20px; color: #f1c40f; font-size: 0.85rem; margin: 5px 0; border-left: 1px dashed #555; }
+.npc-badge { background: #34495e; color: #ecf0f1; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; margin-left: 5px; white-space: nowrap; }

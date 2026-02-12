@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>델키스의 요리 계산기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>델키스의 요리 계산기</h1>
+    
+    <div class="input-group">
+        <label>요리 검색</label>
+        <input type="text" id="recipeSearch" placeholder="검색어 입력 (예: 스테이크, 핫케이크)">
+    </div>
+
+    <div class="input-group">
+        <label>목표 요리 선택</label>
+        <select id="mainRecipe">
+            </select>
+    </div>
+
+    <div class="input-group">
+        <label>만들 개수 (세트 수)</label>
+        <input type="number" id="count" value="1" min="1">
+    </div>
+
+    <button id="calcBtn">계산하기</button>
+
+    <div id="resultArea" class="result-section">
+        <h3>📊 제작 트리 (하위 단계)</h3>
+        <div id="treeView" class="recipe-tree"></div>
+
+        <h3>🛒 최종 장보기 목록</h3>
+        <div id="totalView" class="shopping-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>재료명</th>
+                        <th>총 수량</th>
+                        <th>수급처 (NPC)</th>
+                    </tr>
+                </thead>
+                <tbody id="totalList"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
