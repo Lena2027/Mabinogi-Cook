@@ -1,3 +1,4 @@
+// script.js
 let recipeData = {};
 let finalShoppingList = {}; // 최종 장보기 목록을 담을 그릇
 
@@ -6,7 +7,7 @@ window.onload = async function() {
     console.log("1. 데이터를 불러옵니다...");
     await loadRecipeData();
     
-    // 검색창 입력 이벤트
+    // 검색창 입력 이벤트 연결
     const searchInput = document.getElementById('recipeSearch');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -14,14 +15,14 @@ window.onload = async function() {
         });
     }
 
-    // 계산하기 버튼 클릭 이벤트 (에러 발생 지점 수정)
+    // 계산하기 버튼 클릭 이벤트 연결
     const calcBtn = document.getElementById('calcBtn');
     if (calcBtn) {
         calcBtn.addEventListener('click', startCalculate); 
     }
 };
 
-// 2. 데이터 불러오기 함수
+// 2. 외부 JSON 데이터 불러오기 함수
 async function loadRecipeData() {
     try {
         const response = await fetch('recipes.json');
@@ -29,6 +30,7 @@ async function loadRecipeData() {
         
         const rawData = await response.json();
         
+        // 엑셀 리스트 형식을 프로그램용 계층형 구조로 변환
         rawData.forEach(row => {
             const dish = row.요리명;
             if (!recipeData[dish]) recipeData[dish] = [];
@@ -48,12 +50,13 @@ async function loadRecipeData() {
     }
 }
 
-// 3. 드롭다운 업데이트
+// 3. 드롭다운 목록 업데이트 함수
 function updateDropdown(filter = "") {
     const select = document.getElementById('mainRecipe');
     if (!select) return;
     select.innerHTML = "";
     
+    // 검색어가 포함된 요리만 필터링
     const keys = Object.keys(recipeData).filter(name => name.includes(filter));
     keys.forEach(name => {
         const opt = document.createElement('option');
@@ -63,7 +66,7 @@ function updateDropdown(filter = "") {
     });
 }
 
-// 4. 핵심! 계산 시작 함수 (이 부분이 없어서 에러가 났던 거예요)
+// 4. 핵심! 계산 시작 함수 (이 부분이 누락되어 에러가 났던 것입니다)
 function startCalculate() {
     const dish = document.getElementById('mainRecipe').value;
     const qtyInput = document.getElementById('count');
@@ -75,16 +78,19 @@ function startCalculate() {
         return;
     }
 
-    finalShoppingList = {}; 
-    treeView.innerHTML = ""; 
+    finalShoppingList = {}; // 초기화
+    treeView.innerHTML = ""; // 초기화
     
+    // 트리 구조 계산 시작
     renderTree(dish, qty, treeView, 0);
+    // 최종 장보기 목록 합계 계산
     renderTotal();
     
+    // 결과 영역 표시
     document.getElementById('resultArea').style.display = 'block';
 }
 
-// 5. 트리 구조 그리기
+// 5. 계층형 트리 구조 그리기 (재귀 함수)
 function renderTree(itemName, amount, container, depth) {
     const ingredients = recipeData[itemName];
     if (!ingredients) return;
@@ -101,9 +107,11 @@ function renderTree(itemName, amount, container, depth) {
         p.innerHTML = `ㄴ ${ing.item} : ${totalIngQty}개 <span class="npc-badge">${ing.npc}</span>`;
         container.appendChild(p);
 
+        // 하위 재료가 또 요리라면 안으로 더 들어감
         if (recipeData[ing.item]) {
             renderTree(ing.item, totalIngQty, container, depth + 1);
         } else {
+            // 더 이상 하위가 없는 원재료만 최종 장보기 목록에 합산
             if (!finalShoppingList[ing.item]) {
                 finalShoppingList[ing.item] = { qty: 0, npc: ing.npc, price: ing.price };
             }
@@ -112,7 +120,7 @@ function renderTree(itemName, amount, container, depth) {
     });
 }
 
-// 6. 최종 장보기 목록 출력
+// 6. 최종 합계 장보기 목록 출력 함수
 function renderTotal() {
     const tbody = document.getElementById('totalList');
     if (!tbody) return;
