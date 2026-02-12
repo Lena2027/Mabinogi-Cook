@@ -26,30 +26,26 @@ window.onload = async function() {
 async function loadRecipeData() {
     try {
         const response = await fetch('recipes.json');
-        if (!response.ok) throw new Error("JSON 파일을 찾을 수 없습니다.");
-        
         const rawData = await response.json();
         
-        // 엑셀 리스트 형식을 프로그램용 계층형 구조로 변환
         rawData.forEach(row => {
-            const dish = row.요리명;
+            const dish = row["요리명"]; // 엑셀의 '요리명' 칸 읽기
             if (!recipeData[dish]) recipeData[dish] = [];
+            
             recipeData[dish].push({
-                item: row.재료명,
-                qty: parseInt(row.수량),
-                price: parseInt(row.가격 || 0),
-                source: row.수급처,
-                npc: row.NPC
+                item: row["재료명"],
+                qty: parseInt(row["수량"]),
+                price: parseInt(row["예상가격(G)"] || 0), // '예상가격(G)' 매핑!
+                source: row["수급처"] || "상점",
+                npc: row["담당NPC"] || "정보없음" // '담당NPC' 매핑!
             });
         });
-        
         updateDropdown();
-        console.log("데이터 로드 성공!");
-    } catch (error) {
-        console.error("데이터 로딩 실패:", error);
+        console.log("데이터 로드 성공! '담당NPC'와 '예상가격(G)'을 인식했습니다.");
+    } catch (e) {
+        console.error("데이터 로드 에러:", e);
     }
 }
-
 // 3. 드롭다운 목록 업데이트 함수
 function updateDropdown(filter = "") {
     const select = document.getElementById('mainRecipe');
@@ -135,3 +131,4 @@ function renderTotal() {
         tbody.innerHTML += row;
     }
 }
+
