@@ -1,18 +1,143 @@
-/* style.css */
-body { font-family: 'Pretendard', sans-serif; background-color: #1b1b1e; color: #dcdcdc; margin: 0; padding: 20px; display: flex; justify-content: center; }
-.container { background-color: #252529; padding: 2rem; border-radius: 12px; width: 100%; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-h1 { color: #ffffff; text-align: center; border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-top: 0; }
-.input-group { margin-bottom: 15px; }
-label { display: block; margin-bottom: 5px; color: #a0a0a0; font-size: 0.9rem; }
-select, input { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #3a3a3e; background-color: #1b1b1e; color: white; box-sizing: border-box; font-size: 1rem; outline: none; }
-input:focus { border-color: #e67e22; } /* 검색창 클릭 시 오렌지색 강조 */
-button { width: 100%; padding: 15px; border: none; border-radius: 6px; background-color: #e67e22; color: white; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; }
-button:hover { background-color: #d35400; }
-.result-section { margin-top: 25px; display: none; }
-.recipe-tree { background: #2d2d32; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #e67e22; line-height: 1.8; }
-.shopping-list { background: #1b1b1e; padding: 15px; border-radius: 8px; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th, td { text-align: left; padding: 12px; border-bottom: 1px solid #3a3a3e; font-size: 0.9rem; }
-th { color: #e67e22; background-color: #2d2d32; }
-.nested { padding-left: 20px; color: #f1c40f; font-size: 0.85rem; margin: 5px 0; border-left: 1px dashed #555; }
-.npc-badge { background: #34495e; color: #ecf0f1; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; margin-left: 5px; white-space: nowrap; }
+/* 전체 폰트 및 배경 설정 */
+body {
+    background-color: #fffafa; /* 아주 연한 핑크빛 화이트 */
+    color: #555;
+    font-family: 'Pretendard', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 20px;
+    /* 2D 느낌을 주는 깔끔한 분홍색 테두리 */
+    border: 3px solid #ffb7c5; 
+    box-shadow: 8px 8px 0px #ffe5ec; /* 뒤로 밀리는 2D 그림자 효과 */
+}
+
+/* 헤더 부분 */
+h1 {
+    color: #ff85a1;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    border-bottom: 2px dashed #ffcad4;
+    padding-bottom: 10px;
+}
+
+/* 입력창 및 선택창 */
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #ff85a1;
+    margin-bottom: 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ffcad4;
+    border-radius: 12px;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #ff85a1;
+    background-color: #fff5f7;
+}
+
+/* 버튼 스타일 (2D 스타일) */
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #ff85a1;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 0px #e06682; /* 버튼 두께감 표현 */
+    transition: 0.1s;
+}
+
+button:active {
+    box-shadow: 0px 0px 0px;
+    transform: translateY(4px);
+}
+
+/* 결과 영역 */
+#resultArea {
+    margin-top: 30px;
+    display: none;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 트리 구조 스타일 */
+#treeView {
+    background-color: #fff9fa;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #ffcad4;
+    line-height: 1.8;
+}
+
+.nested {
+    color: #777;
+    border-left: 2px solid #ffcad4;
+    margin-left: 10px;
+    padding-left: 15px;
+}
+
+/* NPC 배지 핑크 버전 */
+.npc-badge {
+    background-color: #fbb1bd;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+/* 하단 장보기 표 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #ffe5ec;
+    color: #ff85a1;
+    padding: 12px;
+    border-bottom: 2px solid #ffcad4;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #fff0f3;
+    text-align: center;
+}
+
+/* 스크롤바 핑크색으로 꾸미기 */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #fff; }
+::-webkit-scrollbar-thumb { background: #ffcad4; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #ff85a1; }
